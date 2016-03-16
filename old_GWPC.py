@@ -18,7 +18,6 @@ tree = loc["html"].encode('utf-8')
 
 # create a subclass and override the handler methods
 class MyHTMLParser(HTMLParser):
-	returned_data = ""
 	def __init__(self):
 		HTMLParser.__init__(self)
 		self.in_div = False
@@ -40,8 +39,8 @@ class MyHTMLParser(HTMLParser):
 					# print value
 					if name == 'class' and value == 'ai1ec-event-title':
 						self.in_span = True
-					# if name == 'class' and value == 'ai1ec-event-time':
-					# 	self.in_span = True
+					if name == 'class' and value == 'ai1ec-event-time':
+						self.in_span = True
 
 	def handle_endtag(self, tag):
 		if tag == "div":
@@ -51,9 +50,13 @@ class MyHTMLParser(HTMLParser):
 
 	def handle_data(self, data):
 		if self.in_span:
-			self.returned_data +=  data
+			print data
 			# print ""
 
+# instantiate the parser and fed it some HTML
+parser = MyHTMLParser()
+
+parser.feed(tree)
 
 
 
