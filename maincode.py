@@ -28,7 +28,7 @@ print 'What are you interested in today?-->'"\n"
 sys.stdout.flush()
 
 def choice():
-	print "(C)limbing, (Cr)ossfit, or (Y)oga?-->"
+	print "+++(C)limbing, (Cr)ossfit, or (Y)oga?+++-->"
 	sys.stdout.flush()
 	choices =raw_input()
 
@@ -200,7 +200,7 @@ def choice():
 
 			(selection_date_from, selection_date_to) = class_dates[selection]
 
-			print 'Train hard, Beatmode. Your CrossFit class is from', selection_date_from.strftime('%b %d %I:%M %p'), '-', to_date_time.strftime('%b %d %I:%M %p')
+			print 'Train hard, Beastmode. Your CrossFit class is from', selection_date_from.strftime('%b %d %I:%M %p'), '-', to_date_time.strftime('%b %d %I:%M %p')
 
 
 	# elif choices=='Cr' or choices=='cr':
