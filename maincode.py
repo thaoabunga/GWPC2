@@ -12,6 +12,7 @@ print "Phone:(510) 452-2022""\n"
 import time;
 localtime = time.asctime( time.localtime(time.time()) )
 
+
 print "Today is", localtime
 
 import calendar
@@ -27,9 +28,10 @@ print 'What are you interested in today?-->'"\n"
 sys.stdout.flush()
 
 def choice():
-	print "(C)limbing or (Y)oga?-->"
+	print "(C)limbing, (Cr)ossfit, or (Y)oga?-->"
 	sys.stdout.flush()
 	choices =raw_input()
+
 	if choices=='Y' or choices=='y':
 			year = '2016'
 			yoga_classes = [yclass for yclass in old_GWPC.FitnessClasses if "Yoga" in yclass["class"]]
@@ -65,14 +67,14 @@ def choice():
 
 				class_dates.append( (from_date_time, to_date_time) )
 
-			print 'Select a time:-->'"\n\n"
+			print 'Select a time-->'
 			i = 1
 			for (from_date_time,to_date_time) in class_dates:
 				print ('%s.' % (i,) ), from_date_time.strftime('%b %d %I:%M %p'), '-', to_date_time.strftime('%b %d %I:%M %p')
 				i += 1
 
 			sys.stdout.flush()
-
+			print 'Input # selection-->'
 			choices = raw_input()
 
 			selection = int(choices) - 1
@@ -129,22 +131,76 @@ def choice():
 				to_date_time = datetime.datetime.strptime(to_date_time, '%Y %b %d %I:%M %p')
 
 				class_dates.append( (from_date_time, to_date_time) )
+	# elif choices== 'Exit'
+	# 	break
 
-			print 'Select a time:-->'"\n\n"
+			print 'Select a time-->'"\n"
 			i = 1
 			for (from_date_time,to_date_time) in class_dates:
 				print ('%s.' % (i,) ), from_date_time.strftime('%b %d %I:%M %p'), '-', to_date_time.strftime('%b %d %I:%M %p')
 				i += 1
 
 			sys.stdout.flush()
-
+			print 'Input # selection-->'
 			choices = raw_input()
 
-			selection = int(choices) - 1
+			selection = int(choices) - 1 
 
 			(selection_date_from, selection_date_to) = class_dates[selection]
 
 			print 'Climb on. Your Climbing clinic is from', selection_date_from.strftime('%b %d %I:%M %p'), '-', to_date_time.strftime('%b %d %I:%M %p')
+
+	elif choices=='Cr' or choices=='cr':
+			year ='2016'
+			crossfit_classes = [crclass for crclass in old_GWPC.FitnessClasses if "CrossFit" in crclass["class"]]
+			
+			class_date_strs = [crclass['time'] for crclass in crossfit_classes]
+
+			class_dates = []
+			for class_date_str in class_date_strs:
+				#each class_date_str looks like 'Mar 30 @ 7:00 pm \xe2\x80\x93 8:15 pm'
+
+				(date,_,rest) = class_date_str.partition(' @ ')
+
+				#rest now looks like '7:00 pm \xe2\x80\x93 8:15 pm'
+
+
+				from_time,_,to_time = rest.partition(' \xe2\x80\x93 ')
+
+				#from_time now looks like '7:00 pm'
+				#_ now looks like ' \xe2\x80\x93 '
+				#to_time now looks like '8:15 pm'
+
+				#from_time example: '2016 Mar 30 7:00 pm'
+				from_date_time = year + ' ' + date + ' ' + from_time
+				#to_time example: '2016 Mar 30 8:12 pm'
+				to_date_time = year + ' ' + date + ' ' + to_time
+
+				#from_date_time = from_date_time.replace('am', 'AM').replace('pm', 'PM')
+				#to_date_time = to_date_time.replace('am', 'AM').replace('pm', 'PM')
+
+				from_date_time = datetime.datetime.strptime(from_date_time, '%Y %b %d %I:%M %p')
+				to_date_time = datetime.datetime.strptime(to_date_time, '%Y %b %d %I:%M %p')
+
+				class_dates.append( (from_date_time, to_date_time) )
+	# elif choices== 'Exit'
+	# 	break
+
+			print 'Select a time-->'"\n"
+			i = 1
+			for (from_date_time,to_date_time) in class_dates:
+				print ('%s.' % (i,) ), from_date_time.strftime('%b %d %I:%M %p'), '-', to_date_time.strftime('%b %d %I:%M %p')
+				i += 1
+
+			sys.stdout.flush()
+			print 'Input # selection-->'
+			choices = raw_input()
+
+			selection = int(choices) - 1 
+
+			(selection_date_from, selection_date_to) = class_dates[selection]
+
+			print 'Train hard, Beatmode. Your CrossFit class is from', selection_date_from.strftime('%b %d %I:%M %p'), '-', to_date_time.strftime('%b %d %I:%M %p')
 
 
 	# elif choices=='Cr' or choices=='cr':
