@@ -13,7 +13,12 @@ import time;
 localtime = time.asctime( time.localtime(time.time()) )
 
 
-print "Today is", localtime
+hour = localtime[11:13]
+if (int(hour) >= 12):
+	hour12 = localtime[0:11] + str(int(hour)%12) + localtime[13:] + " PM"
+else:
+	hour12 = localtime + " AM"
+print "Today is", hour12
 
 import calendar
 
